@@ -57,7 +57,7 @@ impl Node {
             x,
             y,
             radius,
-            color: srgba(0.0, 0.0, 0.0, 1.0),
+            color: srgba(1.0, 1.0, 1.0, 1.0),
         }
     }
 
@@ -81,7 +81,7 @@ impl Node {
                 1.0
             );
         } else {
-            self.color = srgba(0.0, 0.0, 0.0, 1.0);
+            self.color = srgba(1.0, 1.0, 1.0, 1.0);
         }
     }
 }
@@ -158,7 +158,7 @@ fn update(app: &App, model: &mut Model, _update: Update) {
 
 fn view(app: &App, model: &Model, frame: Frame) {
     let draw = app.draw();
-    draw.background().color(WHITE);
+    draw.background().color(BLACK);
     // draw.ellipse().x_y(model.point.x, model.point.y).radius(30.0).color(RED);
     model.nodes.iter().for_each(|node| {
         draw.ellipse()
@@ -171,10 +171,10 @@ fn view(app: &App, model: &Model, frame: Frame) {
 
     // capture frames (max 1000 saved)
     // deactivate to make output smoother
-    // if frame.nth() < 1000 {
-    //     let file_path = captured_frame_path(&model, &frame);
-    //     app.main_window().capture_frame(file_path);
-    // }
+    if frame.nth() < 1000 {
+        let file_path = captured_frame_path(&model, &frame);
+        app.main_window().capture_frame(file_path);
+    }
 }
 
 fn captured_frame_path(model: &Model, frame: &Frame) -> std::path::PathBuf {
